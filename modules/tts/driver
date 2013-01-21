@@ -1,0 +1,8 @@
+#!/bin/bash
+# http://ru.festivalspeaker.wikia.com
+tmpdir="tmp"
+wavfile="./$tmpdir/$0$(date +%s).wav"
+text=`cat "$1"`
+echo "$text" | text2wave -o "$wavfile" -eval "(voice_msu_ru_nsh_clunits)"
+aplay "$wavfile" > /dev/null 2>&1
+rm "$wavfile"

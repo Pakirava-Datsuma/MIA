@@ -1,0 +1,48 @@
+#!/bin/bash
+#root_dir="."
+source "./../../env/var.sh"
+
+rm "$module_data_dir/*"
+rm "$producer_data_dir/*"
+
+delay="0.3s"
+#$odds="13579" перечисление нечетные для сравнения - не пригодилось
+sound1="динг"
+sound2="донг"
+sound=$sound1
+cooker=0
+task_count=0
+while [ 1 ]; do
+# кукушка "чет-нечет"
+
+	#
+	time=`date +%S` # количество секунд
+	echo "time is $time"
+	oldcooker=$cooker 
+	echo "oldcooker is $oldcooker"
+	cooker=$(($time % 5 < 1 )) # остаток от деления на 2, короче чет-нечет
+	echo "cooker is $cooker"
+	cookoo=$(( $cooker > $oldcooker ))
+	
+	echo "cookooing: $cookoo"
+	if [ $cookoo -eq 1 ]; then
+		test $sound == $sound1 && sound=$sound2 || sound=$sound1
+		data=$sound
+		data=$time
+	#	add_task=$cookoo
+	#fi
+	#echo "sound is $sound"
+	#if [ $add_task ]; then
+		let task_count++
+		task_name="$0.$$.$time"
+		temp_data="$module_data_dir/$task_name"
+		new_task="$producer_data_dir/$task_name"
+		#touch $new_task
+		#echo "text" >> $temp_data
+		echo "$data" >> $temp_data
+		#add_qeue_task $temp_data
+		mv "$temp_data" "$new_task"
+	fi
+echo "tasks produced: $task_count"
+sleep $delay
+done
