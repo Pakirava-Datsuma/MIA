@@ -1,0 +1,17 @@
+#!/bin/bash
+source "./../../env/var.sh"
+source "./../../env/func.sh"
+
+rm "$module_data_dir/*"
+rm "$producer_data_dir/*"
+
+
+while [ 1 ]; do
+	read
+	test "$REPLY" = "exit" && exit 1
+	tmp_name=`date +%s`
+	tmp_file="$module_data_dir/$tmp_name"
+	task_file="$producer_data_dir/$tmp_name"
+	echo "$REPLY" >> "$tmp_file"
+	mv "$tmp_file" "$task_file"
+done
