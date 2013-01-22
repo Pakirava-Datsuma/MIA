@@ -1,6 +1,7 @@
 #!/bin/bash
 #root_dir="."
 source "./../../env/var.sh"
+source "./../../env/func.sh"
 
 rm "$module_data_dir/*"
 rm "$producer_data_dir/*"

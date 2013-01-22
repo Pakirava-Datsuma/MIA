@@ -5,7 +5,6 @@ source "./env/var.sh"
 rm "$qeue_task_dir/*"
 rm "$qeue_data_dir/*"
 
-#в папке out каждого модуля
 task_count=0
 while [ 1 ]; do
 
@@ -24,6 +23,13 @@ for task in $(ls "$qeue_task_dir"); do
 			data_file="$current_module_data_dir/$task"
 			mv "$task_data_file" "$data_file"
 			rm "$task_info_file"
+			#TODO можно добавить в консамер мьютекс
+			#TODO и тогда можно не переносить задание, а работать над текущим таском
+			#TODO или перенести в папку занятых, чтобы диспатчер не дергался. а отдельный демон будет проверять просроченные мьютексы
+			
+			# запускаем консамер
+			./consumer.sh "$current_module_dir" "$task" &
+			
 			break
 		fi
 	done	
