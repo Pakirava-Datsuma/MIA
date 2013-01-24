@@ -7,3 +7,4 @@ text=`cat "$data_file"`
 echo "$text" | text2wave -o "$wav_file" -eval "(voice_msu_ru_nsh_clunits)"
 aplay "$wav_file" > /dev/null 2>&1
 rm "$wav_file"
+exit 0

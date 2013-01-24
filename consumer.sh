@@ -2,8 +2,8 @@
 source "./env/var.sh"
 source "./env/func.sh"
 
-rm "$module_data_dir/*"
-rm "$consumer_data_dir/*"
+#rm "$module_data_dir/*"
+#rm "$consumer_data_dir/*"
 
 driver_path="$1"
 data_file="$2"
@@ -14,8 +14,8 @@ cd "$driver_path"
 ./driver "$2" &> "$log_file"
 # проверяем код завершения
 driver_error=$?
-test driver_error < 1 && exit $driver_error
+test driver_error > 0 && exit $driver_error
 # если все в порядке - чистим нычки
 rm "$data_file"
 rm "$log_file"
-exit 1
+exit 0

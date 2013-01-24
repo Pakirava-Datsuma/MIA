@@ -1,17 +1,18 @@
 #!/bin/bash
 source "./../../env/var.sh"
 source "./../../env/func.sh"
+echo `pwd`
+#rm "$module_data_dir/*"
+#rm "$producer_data_dir/*"
 
-rm "$module_data_dir/*"
-rm "$producer_data_dir/*"
 
-
-while [ 1 ]; do
+while true; do
 	read
 	test "$REPLY" = "exit" && exit 1
 	tmp_name=`date +%s`
 	tmp_file="$module_data_dir/$tmp_name"
 	task_file="$producer_data_dir/$tmp_name"
+	test "${REPLY:1:4}" = "mia " && data=${REPLY:5} || data=$REPLY
 	echo "$REPLY" >> "$tmp_file"
 	mv "$tmp_file" "$task_file"
 done

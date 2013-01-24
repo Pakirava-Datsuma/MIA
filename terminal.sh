@@ -1,2 +1,3 @@
 #!/bin/bash
-./modules/console/producer
+cd ./modules/console/
+./producer
